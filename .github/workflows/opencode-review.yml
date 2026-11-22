@@ -1,0 +1,66 @@
+name: opencode-review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+concurrency:
+  group: opencode-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  review:
+    if: ${{ github.event.pull_request.draft == false }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      # Three OpenCode Go keys share one credit pool each; spread pull requests over them.
+      - name: Pick an OpenCode Go key
+        id: go
+        env:
+          KEY_1: ${{ secrets.OPENCODE_GO_1 }}
+          KEY_2: ${{ secrets.OPENCODE_GO_2 }}
+          KEY_3: ${{ secrets.OPENCODE_GO_3 }}
+        run: |
+          case $((GITHUB_RUN_NUMBER % 3)) in
+            0) echo "value=$KEY_1" >> "$GITHUB_OUTPUT" ;;
+            1) echo "value=$KEY_2" >> "$GITHUB_OUTPUT" ;;
+            *) echo "value=$KEY_3" >> "$GITHUB_OUTPUT" ;;
+          esac
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Git identity for the review action
+        run: |
+          git config --global user.name "opencode-review"
+          git config --global user.email "opencode-review@users.noreply.github.com"
+      - name: Run OpenCode review
+        uses: anomalyco/opencode/github@latest
+        env:
+          OPENCODE_API_KEY: ${{ steps.go.outputs.value }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          model: opencode-go/deepseek-v4.1-flash
+          use_github_token: true
+          prompt: |
+            Review this pull request for real defects only.
+
+            Report a finding only when the change produces a wrong result, an unhandled
+            error, a leaked process, handle or temporary file, a broken edge case (empty,
+            huge, unicode, concurrent, interrupted), data loss, a security problem, or a
+            behaviour that contradicts the README or AGENTS.md contract.
+            Do not report style, naming, formatting, comment wording, missing tests, or
+            speculative refactors. The repository AGENTS.md "Code Review Rules" section
+            lists what counts as a real defect for this tool.
+
+            For each finding give one line: severity (P0 blocker, P1 real defect),
+            file:line, what breaks, and the smallest correct fix.
+            If nothing qualifies, reply with one short line saying no real defects were found.
+            Keep the whole comment under 40 lines. Do not edit code, do not push commits,
+            do not run the test suite. Read the code only: do not execute the project's
+            scripts or binaries, make network calls, or run git commands that change state.

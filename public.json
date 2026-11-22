@@ -1,0 +1,40 @@
+{
+  "repo": "windows-network-ab",
+  "description": "A PowerShell script that compares two Windows network captures and reports where the measurements changed.",
+  "topics": [
+    "windows",
+    "powershell",
+    "networking",
+    "diagnostics",
+    "tailscale",
+    "traceroute"
+  ],
+  "files": [
+    "windows-network-ab.ps1",
+    "README.md",
+    "README.ko.md",
+    "AGENTS.md",
+    "public.json",
+    "LICENSE",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+    "CODE_OF_CONDUCT.md",
+    ".github/ISSUE_TEMPLATE/bug_report.yml",
+    ".github/ISSUE_TEMPLATE/feature_request.yml",
+    ".github/ISSUE_TEMPLATE/config.yml",
+    ".github/pull_request_template.md",
+    ".github/workflows/tests.yml",
+    ".github/workflows/claude.yml",
+    ".github/workflows/opencode-review.yml",
+    "tests/Compare.Tests.ps1",
+    "tests/fixtures/A.json",
+    "tests/fixtures/B.json",
+    "tests/fixtures/B-observations.json",
+    "docs/logo.svg",
+    "docs/demo/compare.png",
+    "docs/demo/compare-dark.png",
+    "docs/social.json",
+    "docs/social.png"
+  ]
+}

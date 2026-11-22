@@ -1,0 +1,94 @@
+{
+  "SchemaVersion": 1,
+  "Label": "A",
+  "CapturedUtc": "2026-01-01T10:00:00Z",
+  "Computer": "EXAMPLE-PC",
+  "Target": "screen.example.test",
+  "TargetAddress": "198.51.100.40",
+  "LanHost": "",
+  "DnsMs": 4.1,
+  "TargetRoute": {
+    "InterfaceAlias": "Tailscale",
+    "InterfaceIndex": 17,
+    "SourceAddress": "192.0.2.25",
+    "DestinationPrefix": "198.51.100.40/32",
+    "NextHop": "0.0.0.0",
+    "RouteMetric": 0,
+    "InterfaceMetric": 5,
+    "EffectiveMetric": 5
+  },
+  "DefaultRoute": {
+    "InterfaceAlias": "Wi-Fi",
+    "InterfaceIndex": 6,
+    "SourceAddress": "",
+    "DestinationPrefix": "0.0.0.0/0",
+    "NextHop": "192.0.2.1",
+    "RouteMetric": 0,
+    "InterfaceMetric": 35,
+    "EffectiveMetric": 35
+  },
+  "TargetAdapter": {
+    "InterfaceAlias": "Tailscale",
+    "InterfaceIndex": 17,
+    "RxErrors": 0,
+    "TxErrors": 0,
+    "RxDiscards": 0,
+    "TxDiscards": 0
+  },
+  "GatewayAdapter": {
+    "InterfaceAlias": "Wi-Fi",
+    "InterfaceIndex": 6,
+    "RxErrors": 0,
+    "TxErrors": 0,
+    "RxDiscards": 0,
+    "TxDiscards": 0
+  },
+  "Ping": {
+    "Gateway": {
+      "Address": "192.0.2.1",
+      "Sent": 10,
+      "Received": 10,
+      "LossPct": 0,
+      "AvgMs": 2,
+      "JitterMs": 1
+    },
+    "Lan": null,
+    "Target": {
+      "Address": "198.51.100.40",
+      "Sent": 10,
+      "Received": 10,
+      "LossPct": 0,
+      "AvgMs": 8,
+      "JitterMs": 2
+    }
+  },
+  "Hops": [
+    {
+      "Hop": 1,
+      "Address": "192.0.2.1"
+    },
+    {
+      "Hop": 2,
+      "Address": null
+    },
+    {
+      "Hop": 3,
+      "Address": "192.0.2.3"
+    },
+    {
+      "Hop": 4,
+      "Address": "198.51.100.40"
+    }
+  ],
+  "Tailscale": {
+    "State": "Running",
+    "Peer": "screen.example.test",
+    "PeerAddress": "198.51.100.40",
+    "Mode": "direct",
+    "Endpoint": "203.0.113.40:41641",
+    "DerpRegion": null
+  },
+  "Tcpip4199": [],
+  "ArpSamples": null,
+  "Errors": []
+}

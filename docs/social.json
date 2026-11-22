@@ -1,0 +1,17 @@
+{
+  "name": "windows-network-ab",
+  "sentence": "A PowerShell script that compares two Windows network captures and reports where the measurements changed.",
+  "tag": "Windows · PowerShell",
+  "terminal": [
+    "PS> .\\windows-network-ab.ps1 compare",
+    "    A.json B.json",
+    "B: target loss 0% -> 10%,",
+    "   first divergent hop 3,",
+    "   Tailscale direct -> relay (DERP sin)"
+  ],
+  "flow": [
+    "Capture A",
+    "Capture B",
+    "Compare and read the verdict"
+  ]
+}
